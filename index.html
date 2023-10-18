@@ -1,11 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pokemon Battles</title>
-</head>
-<body>
-    
-</body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Pokemon Battles</title>
+        <link rel="icon" type="image/x-icon" href="./images/pikachu-icon.png" />
+        <link rel="stylesheet" href="styles.css" />
+    </head>
+    <body>
+        <main>
+            <div id="pokemon-container">
+                <img id="pokeball" src="./images/pokeball.png" />
+                <!-- <img id="pokemon-image" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D" /> -->
+            </div>
+
+            <section id="controls">
+                <button id="play">Play</button>
+                <div id="choices"></div>
+            </section>
+        </main>
+
+        <script src="./api.js"></script>
+        <script src="./script.js"></script>
+    </body>
 </html>
