@@ -1,5 +1,7 @@
 body {
+    margin: 0;
     display: flex;
+    flex-direction: column;
     background-image: url("./images/pokemon-fight-pose-vector.jpg");
     background-repeat: no-repeat;
     background-size: cover;
@@ -7,24 +9,47 @@ body {
     height: 100vh;
     width: 100vw;
     align-items: center;
-    justify-content: center;
     color: #043966;
     font-family: mono, sans-serif;
     text-align: center;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    max-width: 777px;
+}
+
+.pokeball {
+    width: 200px;
+}
+
+.game-name {
+    display: flex;
+    width: 85%;
+    min-width: 200px;
+    margin-top: 25px;
 }
 
 main {
     display: flex;
     flex-direction: column;
     width: 80%;
+    height: 60%;
     align-items: center;
-    justify-content: center;
     gap: 30px;
 }
 
 .pokemon-wrapper {
     display: flex;
     gap: 25px;
+}
+
+#play-btn {
+    font-size: 1.5rem;
+    color: #1aac9e;
 }
 
 button {
@@ -132,6 +157,7 @@ button:hover {
 .moves-container {
     display: flex;
     flex-direction: column;
+    height: 275px;
     padding: 20px;
     border-right: 1px solid #530a52;
 }
