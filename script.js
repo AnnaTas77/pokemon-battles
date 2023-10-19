@@ -96,7 +96,7 @@ const getEnemyPokemon = async () => {
     imageEl.src = enemyPokemon.url;
     imageEl.alt = `Image of ${enemyPokemon.name}`;
     textEl.innerText = enemyPokemon.name;
-    cardTitle.innerText = "Your enemy is:";
+    cardTitle.innerText = "Enemy Pokemon";
 
     divEl.appendChild(cardTitle);
     divEl.appendChild(imageEl);
@@ -118,25 +118,28 @@ const displaySelectedPokemon = (usersPokemon) => {
     const divEl = document.createElement("div");
     divEl.classList.add("selected-pokemon-card");
 
+    const innerDiv = document.createElement("div");
+    innerDiv.classList.add("pokemon-info");
+
     const imageEl = document.createElement("img");
     const textEl = document.createElement("p");
     const cardTitle = document.createElement("h3");
     const fightButton = document.createElement("button");
+    fightButton.classList.add("fight-btn");
     fightButton.innerText = "Fight!";
 
     imageEl.src = usersPokemon[0].url;
     imageEl.alt = `Image of ${usersPokemon[0].name}`;
     textEl.innerText = usersPokemon[0].name;
-    cardTitle.innerText = "Your Pokemon is: ";
+    cardTitle.innerText = "Your Pokemon";
 
-    divEl.appendChild(cardTitle);
-    divEl.appendChild(imageEl);
-    divEl.appendChild(textEl);
+    innerDiv.appendChild(cardTitle);
+    innerDiv.appendChild(imageEl);
+    innerDiv.appendChild(textEl);
+    divEl.appendChild(innerDiv);
     selectedPokemonCard.appendChild(divEl);
     mainContainer.appendChild(fightButton);
     getPokemonMoves(usersPokemon[0].url);
-
-    const pokemonMoves = getPokemonMoves();
 };
 
 const getPokemonMoves = async (urlString) => {
@@ -165,6 +168,22 @@ const getPokemonMoves = async (urlString) => {
 
         randomMovesArray.push({ moveName: moveName, damagePoints: damagePoints });
     }
+
+    const movesContainer = document.createElement("div");
+    movesContainer.classList.add("moves-container");
+    const title = document.createElement("h3");
+    title.innerText = "Choose a Move";
+
+    movesContainer.appendChild(title);
+
+    randomMovesArray.forEach((move) => {
+        const moveButton = document.createElement("button");
+        moveButton.innerText = move.moveName;
+        movesContainer.appendChild(moveButton);
+    });
+
+    const selectedPokemonCard = document.querySelector(".selected-pokemon-card");
+    selectedPokemonCard.appendChild(movesContainer);
 
     console.log("randomMovesArray", randomMovesArray);
     return randomMovesArray[0];

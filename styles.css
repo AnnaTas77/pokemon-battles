@@ -8,6 +8,9 @@ body {
     width: 100vw;
     align-items: center;
     justify-content: center;
+    color: #043966;
+    font-family: mono, sans-serif;
+    text-align: center;
 }
 
 main {
@@ -27,7 +30,7 @@ main {
 button {
     background: #fff;
     border: none;
-    color: #3e7ae7;
+    color: #043966;
     font-weight: 600;
     font-size: 14px;
     padding: 10px 36px;
@@ -58,16 +61,26 @@ button:hover {
     justify-content: center;
 }
 
+#selected-pokemon {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 15px;
+    align-items: center;
+}
+
+#selected-pokemon button {
+    margin: 0 0 20px 0;
+}
+
 .pokemon-card,
-.enemy-card,
-.selected-pokemon-card {
+.enemy-card {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     background-color: #ffffffa8;
     border-radius: 10px;
-    padding: 10px;
+    padding: 22px;
     font-size: 1.1rem;
     font-weight: bolder;
     color: #043966;
@@ -92,4 +105,43 @@ button:hover {
 .selected-pokemon-card p {
     margin: 0;
     text-transform: uppercase;
+}
+
+.selected-pokemon-card {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    align-items: flex-start;
+    background-color: #ffffffa8;
+    border-radius: 10px;
+    padding: 20px;
+    font-size: 1.1rem;
+    font-weight: bolder;
+    color: #043966;
+    font-family: mono, sans-serif;
+    box-shadow: 0px 4px 10px 1px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.moves-container {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border-right: 1px solid #530a52;
+}
+
+.moves-container h3 {
+    color: #530a52;
+    margin: 0 0 40px;
+}
+
+.moves-container button,
+.fight-btn {
+    color: #530a52;
+    box-shadow: 0px 4px 10px 1px;
+}
+
+.fight-btn {
+    font-size: 1.8rem;
 }
