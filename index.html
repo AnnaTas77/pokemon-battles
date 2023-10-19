@@ -4,23 +4,21 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Pokemon Battles</title>
-        <link rel="icon" type="image/x-icon" href="./images/pikachu-icon.png" />
+        <link rel="icon" type="image/x-icon" href="./images/pokeball.png" />
         <link rel="stylesheet" href="styles.css" />
     </head>
     <body>
         <main>
-            <div id="pokemon-container">
-                <img id="pokeball" src="./images/pokeball.png" />
-                <!-- <img id="pokemon-image" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D" /> -->
+            <div class="pokemon-wrapper">
+                <div id="selected-pokemon"></div>
+                <div id="pokemon-container">
+                    <div id="choices"></div>
+                    <button id="play" onclick="choose4Pokemons()">Load Pokemons and Choose One</button>
+                </div>
+                <div id="enemy-pokemon"></div>
             </div>
-
-            <section id="controls">
-                <button id="play">Play</button>
-                <div id="choices"></div>
-            </section>
         </main>
 
-        <script src="./api.js"></script>
         <script src="./script.js"></script>
     </body>
 </html>
