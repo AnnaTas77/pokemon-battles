@@ -124,6 +124,11 @@ button:hover {
     transition: all 0.2s ease-in-out;
 }
 
+.health-score {
+    text-transform: none !important;
+    color: #0a6f10;
+}
+
 .moves-container {
     display: flex;
     flex-direction: column;
@@ -136,10 +141,22 @@ button:hover {
     margin: 0 0 40px;
 }
 
-.moves-container button,
+.move-btn,
 .fight-btn {
     color: #530a52;
     box-shadow: 0px 4px 10px 1px;
+}
+
+.move-btn.active {
+    color: #530a52;
+    box-shadow: 0px 4px 10px 1px;
+    pointer-events: none;
+}
+
+.move-btn:disabled {
+    color: grey;
+    box-shadow: 0px 4px 10px 1px;
+    pointer-events: none;
 }
 
 .fight-btn {

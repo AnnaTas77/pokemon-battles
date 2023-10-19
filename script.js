@@ -5,14 +5,18 @@ const getAllPokemons = async () => {
     return pokemonsArray.results;
 };
 
-const pokemonSelectedbyUser = [];
+const numberOfGeneratedPokemons = 3;
 
-const choose4Pokemons = async () => {
+let selectedPokemon = {};
+let enemyPokemon = {};
+let selectedMove = {};
+
+const chooseYourPokemon = async () => {
     const pokemonsArray = await getAllPokemons();
 
     const chosenPokemons = [];
 
-    for (i = 0; i < 3; i++) {
+    for (i = 0; i < numberOfGeneratedPokemons; i++) {
         const randomNum = Math.floor(Math.random() * 150);
         chosenPokemons.push(pokemonsArray[randomNum]);
     }
@@ -47,14 +51,10 @@ const choose4Pokemons = async () => {
         pokemonButton.appendChild(imageEl);
         pokemonButton.appendChild(textEl);
         pokemonButton.addEventListener("click", () => {
-            if (pokemonSelectedbyUser.length > 0) {
-                pokemonSelectedbyUser.pop();
-            }
-            pokemonSelectedbyUser.push(obj);
-
+            selectedPokemon = obj;
+            selectedPokemon.health = 100;
             getEnemyPokemon();
-
-            displaySelectedPokemon(pokemonSelectedbyUser);
+            displaySelectedPokemon();
         });
         pokemonChoices.appendChild(pokemonButton);
     });
@@ -75,7 +75,7 @@ const getEnemyPokemon = async () => {
     const pokemonName = chosenPokemon.name;
     const pokemonImageUrl = getPokemonImage(chosenPokemon.url);
 
-    const enemyPokemon = { name: pokemonName, url: pokemonImageUrl };
+    enemyPokemon = { name: pokemonName, url: pokemonImageUrl, health: 100 };
 
     const chosenEnemy = document.getElementById("enemy-pokemon");
 
@@ -90,15 +90,20 @@ const getEnemyPokemon = async () => {
     const divEl = document.createElement("div");
     divEl.classList.add("enemy-card");
 
+    const cardTitle = document.createElement("h3");
+    const healthScore = document.createElement("p");
+
     const imageEl = document.createElement("img");
     const textEl = document.createElement("p");
-    const cardTitle = document.createElement("h3");
     imageEl.src = enemyPokemon.url;
     imageEl.alt = `Image of ${enemyPokemon.name}`;
     textEl.innerText = enemyPokemon.name;
+    healthScore.classList.add("health-score");
+    healthScore.innerText = `Health: ${enemyPokemon.health}/100`;
     cardTitle.innerText = "Enemy Pokemon";
 
     divEl.appendChild(cardTitle);
+    divEl.appendChild(healthScore);
     divEl.appendChild(imageEl);
     divEl.appendChild(textEl);
     chosenEnemy.appendChild(divEl);
@@ -108,7 +113,7 @@ const getEnemyPokemon = async () => {
     return enemyPokemon;
 };
 
-const displaySelectedPokemon = (usersPokemon) => {
+const displaySelectedPokemon = () => {
     const pokemonsToSelect = document.getElementById("pokemon-container");
     pokemonsToSelect.remove();
 
@@ -121,25 +126,29 @@ const displaySelectedPokemon = (usersPokemon) => {
     const innerDiv = document.createElement("div");
     innerDiv.classList.add("pokemon-info");
 
+    const cardTitle = document.createElement("h3");
+    const healthScore = document.createElement("p");
     const imageEl = document.createElement("img");
     const textEl = document.createElement("p");
-    const cardTitle = document.createElement("h3");
     const fightButton = document.createElement("button");
     fightButton.classList.add("fight-btn");
     fightButton.innerText = "Fight!";
 
-    imageEl.src = usersPokemon[0].url;
-    imageEl.alt = `Image of ${usersPokemon[0].name}`;
-    textEl.innerText = usersPokemon[0].name;
     cardTitle.innerText = "Your Pokemon";
+    healthScore.classList.add("health-score");
+    healthScore.innerText = `Health: ${selectedPokemon.health}/100`;
+    imageEl.src = selectedPokemon.url;
+    imageEl.alt = `Image of ${selectedPokemon.name}`;
+    textEl.innerText = selectedPokemon.name;
 
     innerDiv.appendChild(cardTitle);
+    innerDiv.appendChild(healthScore);
     innerDiv.appendChild(imageEl);
     innerDiv.appendChild(textEl);
     divEl.appendChild(innerDiv);
     selectedPokemonCard.appendChild(divEl);
     mainContainer.appendChild(fightButton);
-    getPokemonMoves(usersPokemon[0].url);
+    getPokemonMoves(selectedPokemon.url);
 };
 
 const getPokemonMoves = async (urlString) => {
@@ -160,7 +169,7 @@ const getPokemonMoves = async (urlString) => {
 
         const min = 0;
         const max = 25;
-        const damagePoints = Math.floor(Math.random() * (max - min + 1)) + min;
+        let damagePoints = Math.floor(Math.random() * (max - min + 1)) + min;
 
         if (moveName === "protect" || moveName === "rest") {
             damagePoints = 0;
@@ -178,15 +187,36 @@ const getPokemonMoves = async (urlString) => {
 
     randomMovesArray.forEach((move) => {
         const moveButton = document.createElement("button");
+        moveButton.classList.add("move-btn");
         moveButton.innerText = move.moveName;
         movesContainer.appendChild(moveButton);
+        moveButton.addEventListener("click", () => {
+            selectMove(move);
+            moveButton.classList.add("active");
+            moveButton.disabled = false;
+        });
     });
 
     const selectedPokemonCard = document.querySelector(".selected-pokemon-card");
     selectedPokemonCard.appendChild(movesContainer);
 
-    console.log("randomMovesArray", randomMovesArray);
+    const moveButtons = document.querySelectorAll(".move-btn");
+
+    console.log("Pokemon moves: ", randomMovesArray);
     return randomMovesArray[0];
+};
+
+const selectMove = (move) => {
+    const allMoveButtons = document.querySelectorAll(".move-btn");
+
+    allMoveButtons.forEach((otherMoveButton) => {
+        otherMoveButton.classList.remove("active");
+        otherMoveButton.disabled = true;
+    });
+
+    selectedMove = move;
+
+    console.log(selectedMove);
 };
 
 const getEnemyMoves = async (enemyUrl) => {
