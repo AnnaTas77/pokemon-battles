@@ -105,8 +105,11 @@ const getEnemyPokemon = async () => {
         });
     }
 
-    const divEl = document.createElement("div");
-    divEl.classList.add("enemy-card");
+    const enemyCard = document.createElement("div");
+    enemyCard.classList.add("enemy-card");
+
+    const enemyInfo = document.createElement("div");
+    enemyInfo.classList.add("enemy-info");
 
     const cardTitle = document.createElement("h3");
     const healthScore = document.createElement("p");
@@ -120,15 +123,13 @@ const getEnemyPokemon = async () => {
     healthScore.innerText = `Health: ${enemyPokemon.health}/100`;
     cardTitle.innerText = "Enemy Pokemon";
 
-    divEl.appendChild(cardTitle);
-    divEl.appendChild(healthScore);
-    divEl.appendChild(imageEl);
-    divEl.appendChild(textEl);
-    chosenEnemy.appendChild(divEl);
+    enemyInfo.appendChild(cardTitle);
+    enemyInfo.appendChild(healthScore);
+    enemyInfo.appendChild(imageEl);
+    enemyInfo.appendChild(textEl);
+    chosenEnemy.appendChild(enemyInfo);
 
     getEnemyMoves(pokemonImageUrl);
-
-    // return enemyPokemon;
 };
 
 const displaySelectedPokemon = () => {
@@ -199,7 +200,7 @@ const getPokemonMoves = async (urlString) => {
         const randomNum = Math.floor(Math.random() * movesArray.length);
         const moveName = movesArray[randomNum].move.name;
 
-        const min = 0;
+        const min = 10;
         const max = 25;
         let damagePoints = Math.floor(Math.random() * (max - min + 1)) + min;
 
@@ -213,17 +214,19 @@ const getPokemonMoves = async (urlString) => {
     const movesContainer = document.createElement("div");
     movesContainer.classList.add("moves-container");
     const title = document.createElement("h3");
-    title.innerText = "Choose a Move";
+    title.innerText = "Select a Move";
 
     movesContainer.appendChild(title);
 
     randomMovesArray.forEach((move) => {
         const moveButton = document.createElement("button");
-        moveButton.classList.add("move-btn");
+        moveButton.classList.add("move-btn", "pulse");
         moveButton.innerText = move.moveName;
         movesContainer.appendChild(moveButton);
+
         moveButton.addEventListener("click", () => {
             selectMove(move);
+            moveButton.classList.remove("pulse");
             moveButton.classList.add("active");
             moveButton.disabled = false;
         });
@@ -233,9 +236,6 @@ const getPokemonMoves = async (urlString) => {
     selectedPokemonCard.appendChild(movesContainer);
 
     const moveButtons = document.querySelectorAll(".move-btn");
-
-    // console.log("Pokemon moves: ", randomMovesArray);
-    // return randomMovesArray[0];
 };
 
 const selectMove = (move) => {
@@ -255,22 +255,60 @@ const getEnemyMoves = async (enemyUrl) => {
 
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${number[0]}/`);
 
-    const statsObject = await response.json();
+    const dataObject = await response.json();
 
-    const movesArray = statsObject.moves;
+    const movesArray = dataObject.moves;
 
     const randomNum = Math.floor(Math.random() * movesArray.length);
     const moveName = movesArray[randomNum].move.name;
 
     const min = 10;
-    const max = 30;
+    const max = 25;
     const damagePoints = Math.floor(Math.random() * (max - min + 1)) + min;
 
-    if (moveName === "protect" || moveName === "rest") {
+    if (moveName === "protect" || moveName === "rest") { 
         damagePoints = 0;
     }
 
     enemyMovesArray.push({ moveName: moveName, damagePoints: damagePoints });
+
+    const enemyPokemon = document.getElementById("enemy-pokemon");
+    const enemyPokemonCard = document.createElement("div");
+    enemyPokemonCard.classList.add("enemy-pokemon-card");
+    const enemyInfo = document.querySelector(".enemy-info");
+
+    const moveBox = document.createElement("div");
+    moveBox.classList.add("move-box");
+
+    const moveInfo = document.createElement("div");
+    moveInfo.classList.add("enemy-move-info");
+
+    const cardTitle = document.createElement("h3");
+    const enemyMoveName = document.createElement("p");
+    const moveImage = document.createElement("img");
+    moveImage.classList.add("enemy-move-img");
+
+    moveImage.src = "./images/enemy.png";
+    moveImage.alt = "skull on fire";
+
+    cardTitle.innerText = "Your Enemy's Move";
+    enemyMoveName.innerText = moveName;
+
+    const currentEnemyMove = enemyPokemon.querySelectorAll(".enemy-move-info");
+
+    if (currentEnemyMove.length > 0) {
+        currentEnemyMove.forEach((move) => {
+            move.remove();
+        });
+    }
+
+    enemyPokemonCard.appendChild(enemyInfo);
+    moveInfo.appendChild(cardTitle);
+    moveInfo.appendChild(moveBox);
+    moveBox.appendChild(enemyMoveName);
+    moveBox.appendChild(moveImage);
+    enemyPokemonCard.appendChild(moveInfo);
+    enemyPokemon.appendChild(enemyPokemonCard);
 };
 
 const pokemonFight = () => {
@@ -293,7 +331,7 @@ const pokemonFight = () => {
         if (selectedPokemon.health <= 0) {
             alert("Your Pokemon has fainted! You've been defeated!");
             document.querySelector(".fight-btn").disabled = true;
-            updatedPokemonHealth.innerText = `0/100`;
+            updatedPokemonHealth.innerText = `Health: 0/100`;
         }
 
         if (enemyPokemon.health < 30) {
@@ -303,11 +341,30 @@ const pokemonFight = () => {
         if (enemyPokemon.health <= 0) {
             alert("Your Enemy has fainted! You won the battle!");
             document.querySelector(".fight-btn").disabled = true;
-            updatedEnemyHealth.innerText = `0/100`;
+            updatedEnemyHealth.innerText = `Health: 0/100`;
         }
     } else {
         alert("Please select a move for your Pokemon.");
     }
 
     //TODO: reset selected move button
+
+    resetAttackMoves();
+};
+
+const resetAttackMoves = () => {
+    enemyMovesArray = [];
+    selectedMove = {};
+
+    const selectedPokemonCard = document.querySelector(".selected-pokemon-card");
+    const movesContainers = selectedPokemonCard.querySelectorAll(".moves-container");
+
+    if (movesContainers.length > 0) {
+        movesContainers.forEach((move) => {
+            move.remove();
+        });
+    }
+
+    getPokemonMoves(selectedPokemon.url);
+    getEnemyMoves(enemyPokemon.url);
 };
