@@ -8,8 +8,9 @@ const getAllPokemons = async () => {
 const numberOfGeneratedPokemons = 3;
 
 let selectedPokemon = {};
-let enemyPokemon = {};
 let selectedMove = {};
+let enemyPokemon = {};
+let enemyMovesArray = [];
 
 const chooseYourPokemon = async () => {
     const pokemonsArray = await getAllPokemons();
@@ -77,6 +78,8 @@ const getEnemyPokemon = async () => {
 
     enemyPokemon = { name: pokemonName, url: pokemonImageUrl, health: 100 };
 
+    console.log("enemy pokemon", enemyPokemon);
+
     const chosenEnemy = document.getElementById("enemy-pokemon");
 
     const existingDivs = chosenEnemy.querySelectorAll("div");
@@ -133,6 +136,10 @@ const displaySelectedPokemon = () => {
     const fightButton = document.createElement("button");
     fightButton.classList.add("fight-btn");
     fightButton.innerText = "Fight!";
+
+    fightButton.addEventListener("click", () => {
+        pokemonFight();
+    });
 
     cardTitle.innerText = "Your Pokemon";
     healthScore.classList.add("health-score");
@@ -229,8 +236,6 @@ const getEnemyMoves = async (enemyUrl) => {
 
     const movesArray = statsObject.moves;
 
-    const enemyMovesArray = [];
-
     const randomNum = Math.floor(Math.random() * movesArray.length);
     const moveName = movesArray[randomNum].move.name;
 
@@ -244,6 +249,21 @@ const getEnemyMoves = async (enemyUrl) => {
 
     enemyMovesArray.push({ moveName: moveName, damagePoints: damagePoints });
 
-    console.log("enemyMovesArray", enemyMovesArray);
-    return enemyMovesArray;
+};
+
+const pokemonFight = () => {
+    console.log("before fight enemyPokemon ", enemyPokemon);
+    console.log("before fight selectedPokemon ", selectedPokemon);
+    console.log("selectedMove ", selectedMove);
+
+    selectedPokemon.health -= enemyMovesArray[0].damagePoints;
+    enemyPokemon.health = enemyPokemon.health - selectedMove.damagePoints;
+
+    console.log("enemyPokemon health", enemyPokemon.health);
+
+    console.log("pokemon Health: ", selectedPokemon.health);
+
+
+    //TODO: update UI health
+    //TODO: reset selected move button
 };
