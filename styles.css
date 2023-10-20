@@ -81,9 +81,25 @@ button:hover {
 
 #choices {
     display: flex;
+    flex-direction: column;
+}
+
+.choices-wrapper {
+    display: flex;
     flex-wrap: wrap;
     gap: 20px;
     justify-content: center;
+}
+
+.choices-title {
+    text-transform: uppercase;
+    border-bottom: 1px solid #ffffff91;
+    border-top: 1px solid #ffffff91;
+    padding: 10px;
+    background: #ffffff6e;
+    color: #5f36b5;
+    font-size: 1.5rem;
+    margin-bottom: 5px;
 }
 
 #selected-pokemon {
@@ -105,7 +121,7 @@ button:hover {
     align-items: center;
     background-color: #ffffffa8;
     border-radius: 10px;
-    padding: 22px;
+    padding: 0 0 15px;
     font-size: 1.1rem;
     font-weight: bolder;
     color: #043966;
@@ -132,6 +148,10 @@ button:hover {
     text-transform: uppercase;
 }
 
+.pokemon-info p {
+    margin-top: -5px;
+}
+
 .selected-pokemon-card {
     display: flex;
     flex-direction: row-reverse;
@@ -139,7 +159,7 @@ button:hover {
     align-items: flex-start;
     background-color: #ffffffa8;
     border-radius: 10px;
-    padding: 20px;
+    padding: 5px 0 5px;
     font-size: 1.1rem;
     font-weight: bolder;
     color: #043966;
@@ -149,7 +169,8 @@ button:hover {
     transition: all 0.2s ease-in-out;
 }
 
-.health-score {
+.pokemon-health-score,
+.enemy-health-score {
     text-transform: none !important;
     color: #0a6f10;
 }
@@ -187,4 +208,10 @@ button:hover {
 
 .fight-btn {
     font-size: 1.8rem;
+}
+
+.fight-btn:disabled {
+    color: grey;
+    box-shadow: 0px 4px 10px 1px;
+    pointer-events: none;
 }

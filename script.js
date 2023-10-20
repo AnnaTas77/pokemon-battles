@@ -31,11 +31,25 @@ const chooseYourPokemon = async () => {
 
     const pokemonChoices = document.getElementById("choices");
 
-    const existingPokemons = pokemonChoices.querySelectorAll("button");
+    const choicesWrapper = document.createElement("div");
+    choicesWrapper.classList.add("choices-wrapper");
+
+    const wrapperTitle = document.createElement("h3");
+    wrapperTitle.classList.add("choices-title");
+    wrapperTitle.innerText = "Select your Pokemon";
+
+    const existingPokemons = pokemonChoices.querySelectorAll("div");
+    const existingTitles = pokemonChoices.querySelectorAll("h3");
 
     if (existingPokemons.length > 0) {
-        existingPokemons.forEach((button) => {
-            button.remove();
+        existingPokemons.forEach((div) => {
+            div.remove();
+        });
+    }
+
+    if (existingTitles.length > 0) {
+        existingTitles.forEach((title) => {
+            title.remove();
         });
     }
 
@@ -57,8 +71,11 @@ const chooseYourPokemon = async () => {
             getEnemyPokemon();
             displaySelectedPokemon();
         });
-        pokemonChoices.appendChild(pokemonButton);
+        choicesWrapper.appendChild(pokemonButton);
     });
+
+    pokemonChoices.appendChild(wrapperTitle);
+    pokemonChoices.appendChild(choicesWrapper);
 };
 
 const getPokemonImage = (pokemonUrl) => {
@@ -77,8 +94,6 @@ const getEnemyPokemon = async () => {
     const pokemonImageUrl = getPokemonImage(chosenPokemon.url);
 
     enemyPokemon = { name: pokemonName, url: pokemonImageUrl, health: 100 };
-
-    console.log("enemy pokemon", enemyPokemon);
 
     const chosenEnemy = document.getElementById("enemy-pokemon");
 
@@ -101,7 +116,7 @@ const getEnemyPokemon = async () => {
     imageEl.src = enemyPokemon.url;
     imageEl.alt = `Image of ${enemyPokemon.name}`;
     textEl.innerText = enemyPokemon.name;
-    healthScore.classList.add("health-score");
+    healthScore.classList.add("enemy-health-score");
     healthScore.innerText = `Health: ${enemyPokemon.health}/100`;
     cardTitle.innerText = "Enemy Pokemon";
 
@@ -113,7 +128,7 @@ const getEnemyPokemon = async () => {
 
     getEnemyMoves(pokemonImageUrl);
 
-    return enemyPokemon;
+    // return enemyPokemon;
 };
 
 const displaySelectedPokemon = () => {
@@ -134,15 +149,24 @@ const displaySelectedPokemon = () => {
     const imageEl = document.createElement("img");
     const textEl = document.createElement("p");
     const fightButton = document.createElement("button");
+    const resetButton = document.createElement("button");
+
     fightButton.classList.add("fight-btn");
     fightButton.innerText = "Fight!";
+
+    resetButton.classList.add("reset-btn");
+    resetButton.innerText = "Restart the Game";
+
+    resetButton.addEventListener("click", () => {
+        location.reload();
+    });
 
     fightButton.addEventListener("click", () => {
         pokemonFight();
     });
 
     cardTitle.innerText = "Your Pokemon";
-    healthScore.classList.add("health-score");
+    healthScore.classList.add("pokemon-health-score");
     healthScore.innerText = `Health: ${selectedPokemon.health}/100`;
     imageEl.src = selectedPokemon.url;
     imageEl.alt = `Image of ${selectedPokemon.name}`;
@@ -155,6 +179,7 @@ const displaySelectedPokemon = () => {
     divEl.appendChild(innerDiv);
     selectedPokemonCard.appendChild(divEl);
     mainContainer.appendChild(fightButton);
+    mainContainer.appendChild(resetButton);
     getPokemonMoves(selectedPokemon.url);
 };
 
@@ -209,8 +234,8 @@ const getPokemonMoves = async (urlString) => {
 
     const moveButtons = document.querySelectorAll(".move-btn");
 
-    console.log("Pokemon moves: ", randomMovesArray);
-    return randomMovesArray[0];
+    // console.log("Pokemon moves: ", randomMovesArray);
+    // return randomMovesArray[0];
 };
 
 const selectMove = (move) => {
@@ -222,8 +247,6 @@ const selectMove = (move) => {
     });
 
     selectedMove = move;
-
-    console.log(selectedMove);
 };
 
 const getEnemyMoves = async (enemyUrl) => {
@@ -239,8 +262,8 @@ const getEnemyMoves = async (enemyUrl) => {
     const randomNum = Math.floor(Math.random() * movesArray.length);
     const moveName = movesArray[randomNum].move.name;
 
-    const min = 0;
-    const max = 25;
+    const min = 10;
+    const max = 30;
     const damagePoints = Math.floor(Math.random() * (max - min + 1)) + min;
 
     if (moveName === "protect" || moveName === "rest") {
@@ -248,22 +271,43 @@ const getEnemyMoves = async (enemyUrl) => {
     }
 
     enemyMovesArray.push({ moveName: moveName, damagePoints: damagePoints });
-
 };
 
 const pokemonFight = () => {
-    console.log("before fight enemyPokemon ", enemyPokemon);
-    console.log("before fight selectedPokemon ", selectedPokemon);
-    console.log("selectedMove ", selectedMove);
+    if (Object.keys(selectedMove).length !== 0) {
+        selectedPokemon.health -= enemyMovesArray[0].damagePoints;
+        enemyPokemon.health = enemyPokemon.health - selectedMove.damagePoints;
 
-    selectedPokemon.health -= enemyMovesArray[0].damagePoints;
-    enemyPokemon.health = enemyPokemon.health - selectedMove.damagePoints;
+        const updatedPokemonHealth = document.querySelector(".pokemon-health-score");
 
-    console.log("enemyPokemon health", enemyPokemon.health);
+        updatedPokemonHealth.innerText = `Health: ${selectedPokemon.health}/100`;
 
-    console.log("pokemon Health: ", selectedPokemon.health);
+        const updatedEnemyHealth = document.querySelector(".enemy-health-score");
 
+        updatedEnemyHealth.innerText = `Health: ${enemyPokemon.health}/100`;
 
-    //TODO: update UI health
+        if (selectedPokemon.health < 30) {
+            updatedPokemonHealth.style.color = "red";
+        }
+
+        if (selectedPokemon.health <= 0) {
+            alert("Your Pokemon has fainted! You've been defeated!");
+            document.querySelector(".fight-btn").disabled = true;
+            updatedPokemonHealth.innerText = `0/100`;
+        }
+
+        if (enemyPokemon.health < 30) {
+            updatedEnemyHealth.style.color = "red";
+        }
+
+        if (enemyPokemon.health <= 0) {
+            alert("Your Enemy has fainted! You won the battle!");
+            document.querySelector(".fight-btn").disabled = true;
+            updatedEnemyHealth.innerText = `0/100`;
+        }
+    } else {
+        alert("Please select a move for your Pokemon.");
+    }
+
     //TODO: reset selected move button
 };
