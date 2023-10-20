@@ -111,7 +111,7 @@ button:hover {
 }
 
 #selected-pokemon button {
-    margin: 0 0 25px 0;
+    margin: 0 0 20px 0;
 }
 
 .pokemon-card {
@@ -213,11 +213,14 @@ button:hover {
 .enemy-move-info h3 {
     color: #530a52;
     margin: 0 0 20px;
+    white-space: nowrap;
 }
 
 .move-box {
     border-right: none;
     border-left: 1px solid #530a52;
+    width: 70%;
+    align-self: center;
 }
 
 .move-box p {
@@ -231,6 +234,7 @@ button:hover {
 .moves-container h3 {
     color: #530a52;
     margin: 0 0 40px;
+    white-space: nowrap;
 }
 
 .move-btn,

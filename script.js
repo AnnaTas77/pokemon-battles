@@ -264,9 +264,9 @@ const getEnemyMoves = async (enemyUrl) => {
 
     const min = 10;
     const max = 25;
-    const damagePoints = Math.floor(Math.random() * (max - min + 1)) + min;
+    let damagePoints = Math.floor(Math.random() * (max - min + 1)) + min;
 
-    if (moveName === "protect" || moveName === "rest") { 
+    if (moveName === "protect" || moveName === "rest") {
         damagePoints = 0;
     }
 
