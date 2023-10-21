@@ -210,6 +210,11 @@ button:hover {
     border-right: 1px solid #530a52;
 }
 
+.enemy-move-info {
+    border-right: none;
+    border-left: 1px solid #530a52;
+}
+
 .enemy-move-info h3 {
     color: #530a52;
     margin: 0 0 20px;
@@ -259,6 +264,11 @@ button:hover {
 }
 
 .fight-btn {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
     font-size: 1.8rem;
 }
 
@@ -266,6 +276,11 @@ button:hover {
     color: grey;
     box-shadow: 0px 4px 10px 1px;
     pointer-events: none;
+    filter: grayscale(100%);
+}
+
+.boxing-gloves-img {
+    height: 50px;
 }
 
 .pulse {

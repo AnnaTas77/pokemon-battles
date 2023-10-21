@@ -156,6 +156,13 @@ const displaySelectedPokemon = () => {
     fightButton.classList.add("fight-btn");
     fightButton.innerText = "Fight!";
 
+    const boxingGlovesImg = document.createElement("img");
+    boxingGlovesImg.classList.add("boxing-gloves-img");
+    boxingGlovesImg.src = "./images/boxing-gloves.png";
+    boxingGlovesImg.alt = "boxing gloves";
+
+    fightButton.appendChild(boxingGlovesImg);
+
     resetButton.classList.add("reset-btn");
     resetButton.innerText = "Restart the Game";
 
@@ -361,6 +368,7 @@ const pokemonFight = () => {
         if (enemyPokemon.health <= 0) {
             alert("Your Enemy has fainted! You won the battle!");
             document.querySelector(".fight-btn").disabled = true;
+
             updatedEnemyHealth.innerText = `Health: 0/100`;
             const moveButtonsArray = document.querySelectorAll(".move-btn");
             moveButtonsArray.forEach((btn) => {
@@ -373,6 +381,7 @@ const pokemonFight = () => {
         if (selectedPokemon.health <= 0) {
             alert("Your Pokemon has fainted! You've been defeated!");
             document.querySelector(".fight-btn").disabled = true;
+
             updatedPokemonHealth.innerText = `Health: 0/100`;
 
             const moveButtonsArray = document.querySelectorAll(".move-btn");
