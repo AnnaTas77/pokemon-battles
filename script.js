@@ -166,6 +166,13 @@ const displaySelectedPokemon = () => {
     resetButton.classList.add("reset-btn");
     resetButton.innerText = "Restart the Game";
 
+    const resetImg = document.createElement("img");
+    resetImg.classList.add("reset-img");
+    resetImg.src = "./images/refresh.png";
+    resetImg.alt = "refresh icon";
+
+    resetButton.appendChild(resetImg);
+
     resetButton.addEventListener("click", () => {
         location.reload();
     });
@@ -365,6 +372,8 @@ const pokemonFight = () => {
             updatedEnemyHealth.style.color = "red";
         }
 
+        const resetBtn = document.querySelector(".reset-btn");
+
         if (enemyPokemon.health <= 0) {
             alert("Your Enemy has fainted! You won the battle!");
             document.querySelector(".fight-btn").disabled = true;
@@ -374,6 +383,8 @@ const pokemonFight = () => {
             moveButtonsArray.forEach((btn) => {
                 btn.disabled = true;
             });
+
+            resetBtn.classList.add("pulse-reset");
 
             return;
         }
@@ -388,10 +399,19 @@ const pokemonFight = () => {
             moveButtonsArray.forEach((btn) => {
                 btn.disabled = true;
             });
+
+            resetBtn.classList.add("pulse-reset");
+            console.log(resetBtn);
         }
     } else {
         alert("Please select a move for your Pokemon.");
     }
+
+    // if (document.querySelector(".fight-btn").disabled) {
+    //     resetButton.classList.add("pulse");
+    // } else {
+    //     resetButton.classList.remove("pulse");
+    // }
 
     resetAttackMoves();
 };

@@ -1,3 +1,7 @@
+html {
+    background-color: #a8d248;
+}
+
 body {
     margin: 0;
     display: flex;
@@ -283,6 +287,25 @@ button:hover {
     height: 50px;
 }
 
+.reset-btn {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px 15px;
+    transform: scale(1.1);
+    border: 1px solid #26b399;
+}
+
+.reset-btn:hover {
+    transform: scale(1.2);
+}
+
+.reset-img {
+    height: 30px;
+}
+
 .pulse {
     animation: pulse-animation 2s infinite;
 }
@@ -290,6 +313,19 @@ button:hover {
 @keyframes pulse-animation {
     0% {
         box-shadow: 0 0 0 0px #8d168b71;
+    }
+    100% {
+        box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+    }
+}
+
+.pulse-reset {
+    animation: pulse-reset 2s infinite;
+}
+
+@keyframes pulse-reset {
+    0% {
+        box-shadow: 0 0 0 0px #32bea79c;
     }
     100% {
         box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
@@ -304,7 +340,7 @@ footer {
     justify-content: center;
     align-items: center;
     margin: 15px 0 15px 0;
-    font-weight: bold;
+    font-weight: normal;
     font-size: 1rem;
     color: #3821a8;
 }
@@ -312,4 +348,88 @@ footer {
 .footer-text a {
     text-decoration: none;
     color: #800e7e;
+    font-style: normal;
+}
+
+/* MEDIA QUERIES */
+
+@media only screen and (max-width: 900px) {
+    body {
+        height: max-content;
+    }
+    #selected-pokemon,
+    #enemy-pokemon {
+        width: 345px;
+    }
+
+    .pokemon-wrapper {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .pokemon-info h3 {
+        padding: 0 5px 5px;
+    }
+
+    .enemy-pokemon-card {
+        flex-direction: row-reverse;
+    }
+
+    .enemy-move-info {
+        border: none;
+    }
+
+    .pokemon-info img,
+    .enemy-info img {
+        width: 150px;
+    }
+
+    .pokemon-info,
+    .enemy-info {
+        padding: 0 7px;
+    }
+
+    .pokemon-health-score,
+    .enemy-health-score {
+        font-size: 0.9rem;
+    }
+
+    .moves-container {
+        border: none;
+    }
+
+    .moves-container h3,
+    .enemy-move-info h3 {
+        white-space: normal;
+    }
+
+    .move-btn {
+        padding: 10px;
+    }
+
+    .move-box {
+        padding: 10px;
+        height: 50%;
+        border: none;
+    }
+
+    .move-box p {
+        font-size: 0.9rem;
+    }
+
+    .pokemon-card img,
+    .enemy-info img,
+    .selected-pokemon-card img {
+        width: 135px;
+        padding: 10px;
+    }
+
+    #play-btn {
+        font-size: 1.2rem;
+    }
+
+    .fight-btn {
+        font-size: 1.3rem;
+        padding: 8px 15px;
+    }
 }
