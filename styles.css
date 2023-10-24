@@ -432,7 +432,7 @@ footer {
 
 @media only screen and (max-width: 900px) {
     body {
-        height: max-content;
+        /* height: max-content; */
     }
     #selected-pokemon,
     #enemy-pokemon {
@@ -475,6 +475,12 @@ footer {
         border: none;
     }
 
+    .moves-container,
+    .move-box,
+    .enemy-move-info {
+        height: 245px; 
+    }
+
     .moves-container h3,
     .enemy-move-info h3 {
         white-space: normal;
@@ -498,7 +504,7 @@ footer {
     .enemy-info img,
     .selected-pokemon-card img {
         width: 135px;
-        padding: 10px;
+        /* padding: 10px; */
     }
 
     #play-btn {
