@@ -12,6 +12,16 @@
             <img src="./images/Pokemon_Battles_yellow_dark_orange.png" alt="Pokemon Battles" class="game-name" />
         </header>
         <main>
+            <div class="modal">
+                <div class="modal-content">
+                    <img class="result-img" />
+                    <img class="winner" />
+                    <div class="result-msg"></div>
+                    <button class="reset-btn" onclick="restartGame()">
+                        New Game<img class="reset-img" src="./images/refresh.png" alt="refresh icon" />
+                    </button>
+                </div>
+            </div>
             <div class="pokemon-wrapper">
                 <div id="selected-pokemon"></div>
                 <div id="pokemon-container">
@@ -30,5 +40,10 @@
         </footer>
 
         <script src="./script.js"></script>
+        <script type="text/javascript">
+            window.onload = function () {
+                document.getElementById("pokemon-audio").play();
+            };
+        </script>
     </body>
 </html>

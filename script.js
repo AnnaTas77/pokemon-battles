@@ -164,7 +164,7 @@ const displaySelectedPokemon = () => {
     fightButton.appendChild(boxingGlovesImg);
 
     resetButton.classList.add("reset-btn");
-    resetButton.innerText = "Restart the Game";
+    resetButton.innerText = "New Game";
 
     const resetImg = document.createElement("img");
     resetImg.classList.add("reset-img");
@@ -324,7 +324,7 @@ const createEnemyUI = (moveName) => {
     moveImage.classList.add("enemy-move-img");
 
     moveImage.src = "./images/enemy.png";
-    moveImage.alt = "skull on fire";
+    moveImage.alt = "Skull on fire";
 
     cardTitle.innerText = "Your Enemy's Move";
     enemyMoveName.innerText = moveName;
@@ -373,16 +373,29 @@ const pokemonFight = () => {
         }
 
         const resetBtn = document.querySelector(".reset-btn");
+        let modal = document.querySelector(".modal");
 
         if (enemyPokemon.health <= 0) {
-            alert("Your Enemy has fainted! You won the battle!");
             document.querySelector(".fight-btn").disabled = true;
+            modal.style.display = "flex";
 
             updatedEnemyHealth.innerText = `Health: 0/100`;
+
             const moveButtonsArray = document.querySelectorAll(".move-btn");
             moveButtonsArray.forEach((btn) => {
                 btn.disabled = true;
             });
+
+            let result = document.querySelector(".result-msg");
+            let resultImg = document.querySelector(".result-img");
+            let winner = document.querySelector(".winner");
+
+            winner.src = `${selectedPokemon.url}`;
+            winner.alt = `${selectedPokemon.name}`;
+
+            resultImg.src = "./images/prize.png";
+            resultImg.alt = "Prize";
+            result.innerText = `Well done! A Legendary Victory for ${selectedPokemon.name}!`;
 
             resetBtn.classList.add("pulse-reset");
 
@@ -390,8 +403,8 @@ const pokemonFight = () => {
         }
 
         if (selectedPokemon.health <= 0) {
-            alert("Your Pokemon has fainted! You've been defeated!");
             document.querySelector(".fight-btn").disabled = true;
+            modal.style.display = "flex";
 
             updatedPokemonHealth.innerText = `Health: 0/100`;
 
@@ -401,17 +414,18 @@ const pokemonFight = () => {
             });
 
             resetBtn.classList.add("pulse-reset");
-            console.log(resetBtn);
+
+            let result = document.querySelector(".result-msg");
+            result.innerText = `${selectedPokemon.name} has fainted. You were defeated this time!`;
+
+            let resultImg = document.querySelector(".result-img");
+
+            resultImg.src = "./images/game-over.png";
+            resultImg.alt = "Game over";
         }
     } else {
         alert("Please select a move for your Pokemon.");
     }
-
-    // if (document.querySelector(".fight-btn").disabled) {
-    //     resetButton.classList.add("pulse");
-    // } else {
-    //     resetButton.classList.remove("pulse");
-    // }
 
     resetAttackMoves();
 };
@@ -423,4 +437,13 @@ const resetAttackMoves = () => {
 
     fetchNewPokemonMoves(selectedPokemon.url, updateMoveButtons);
     getEnemyMoves(enemyPokemon.url, updateEnemyUI);
+};
+
+// MODAL
+
+let modal = document.querySelector(".modal");
+
+const restartGame = () => {
+    location.reload();
+    modal.style.display = "none";
 };
