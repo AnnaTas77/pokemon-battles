@@ -5,6 +5,10 @@ In this browser-based game, you will engage in epic duels between various Pokemo
 
 ![Pokemon Battles Game Screenshot](./images/game-screenshot-best.png)
 
+## Live Version
+
+#### Embark on your Pokemon adventure [here](https://poke-battles.netlify.app/).
+
 ## Features
 
 -   **Pokemon Selection**: You can load various Pokemon from the PokeAPI and choose one from three options to be your partner in battles.
