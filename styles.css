@@ -296,6 +296,7 @@ button:hover {
     padding: 10px 15px;
     transform: scale(1.1);
     border: 1px solid #26b399;
+    margin-bottom: 25px;
 }
 
 .reset-btn:hover {
@@ -436,7 +437,7 @@ footer {
     }
     #selected-pokemon,
     #enemy-pokemon {
-        width: 345px;
+        /* width: 345px; */
     }
 
     .pokemon-wrapper {
@@ -446,6 +447,7 @@ footer {
 
     .pokemon-info h3 {
         padding: 0 5px 5px;
+        font-size: 1.25rem;
     }
 
     .enemy-pokemon-card {
@@ -459,6 +461,10 @@ footer {
     .pokemon-info img,
     .enemy-info img {
         width: 150px;
+    }
+
+    .enemy-move-img {
+        width: 55px;
     }
 
     .pokemon-info,
@@ -478,16 +484,17 @@ footer {
     .moves-container,
     .move-box,
     .enemy-move-info {
-        height: 245px; 
+        height: 245px;
     }
 
     .moves-container h3,
     .enemy-move-info h3 {
         white-space: normal;
+        font-size: 1.25rem;
     }
 
     .move-btn {
-        padding: 10px;
+        padding: 10px 0;
     }
 
     .move-box {
