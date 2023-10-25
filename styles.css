@@ -447,11 +447,6 @@ footer {
         font-size: 1.25rem;
     }
 
-    .pokemon-wrapper {
-        flex-direction: column;
-        align-items: center;
-    }
-
     #selected-pokemon,
     #enemy-pokemon {
         width: 309px;
@@ -535,6 +530,7 @@ footer {
     }
 
     .fight-btn {
+        display: none;
         font-size: 1.3rem;
         padding: 8px 15px;
         margin-top: 0;
@@ -550,8 +546,9 @@ footer {
     }
 }
 
-@media only screen and (max-width: 400px) {
-    .fight-btn {
-        display: none;
+@media only screen and (max-width: 670px) {
+    .pokemon-wrapper {
+        flex-direction: column;
+        align-items: center;
     }
 }
