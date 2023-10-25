@@ -401,7 +401,7 @@ const pokemonFight = () => {
 
             resultImg.src = "./images/prize.png";
             resultImg.alt = "Prize";
-            result.innerText = `Well done! A Legendary Victory for ${selectedPokemon.name}!`;
+            result.innerText = `Well done! 🎉 ⭐\nA Legendary Victory for ${selectedPokemon.name}!`;
 
             resetBtn.classList.add("pulse-reset");
 
@@ -422,7 +422,7 @@ const pokemonFight = () => {
             resetBtn.classList.add("pulse-reset");
 
             let result = document.querySelector(".result-msg");
-            result.innerText = `${selectedPokemon.name} has fainted. You were defeated this time!`;
+            result.innerText = `${selectedPokemon.name} has fainted.😖\nYou were defeated this time!`;
 
             let resultImg = document.querySelector(".result-img");
 
