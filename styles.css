@@ -342,15 +342,31 @@ footer {
     align-items: center;
     margin: 15px 0 15px 0;
     font-weight: normal;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     color: #3821a8;
 }
 
+.footer-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
 .footer-text a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     text-decoration: none;
-    color: #800e7e;
+    color: #ff296c;
     font-style: normal;
     cursor: pointer;
+    font-weight: bold;
+}
+
+.github {
+    width: 25px;
+    margin-left: 5px;
 }
 
 /* MODAL */
@@ -409,16 +425,6 @@ footer {
     font-weight: bold;
     text-transform: uppercase;
     max-width: 350px;
-}
-
-.close-btn {
-    float: right;
-    color: lightgray;
-    font-size: 24px;
-    font-weight: bold;
-}
-.close-btn:hover {
-    color: darkgray;
 }
 
 @keyframes animatetop {
@@ -521,7 +527,6 @@ footer {
     .enemy-info img,
     .selected-pokemon-card img {
         width: 135px;
-        /* padding: 10px; */
     }
 
     #play-btn {
