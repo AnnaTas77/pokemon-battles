@@ -250,6 +250,12 @@ const createMovesButtons = (movesArray) => {
             selectMove(moveForButton);
             moveButton.classList.remove("pulse");
             moveButton.classList.add("active");
+
+            const fightButton = document.querySelector(".fight-btn");
+            const computedStyle = window.getComputedStyle(fightButton);
+            if (computedStyle.display === "none") {
+                pokemonFight();
+            }
         });
     });
 

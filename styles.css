@@ -350,6 +350,7 @@ footer {
     text-decoration: none;
     color: #800e7e;
     font-style: normal;
+    cursor: pointer;
 }
 
 /* MODAL */
@@ -378,7 +379,7 @@ footer {
     margin: auto;
     width: 70%;
     max-width: 700px;
-    height: 65%;
+    /* height: 65%; */
     background-color: rgba(255, 255, 255, 0.95);
     border-radius: 8px;
     -webkit-backdrop-filter: blur(10px);
@@ -540,5 +541,11 @@ footer {
 
     .reset-btn {
         margin-top: 0px;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .fight-btn {
+        display: none;
     }
 }
