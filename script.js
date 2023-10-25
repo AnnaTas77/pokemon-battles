@@ -326,7 +326,7 @@ const createEnemyUI = (moveName) => {
     moveImage.src = "./images/enemy.png";
     moveImage.alt = "Skull on fire";
 
-    cardTitle.innerText = "Your Enemy's Move";
+    cardTitle.innerText = "Enemy's Move";
     enemyMoveName.innerText = moveName;
 
     const currentEnemyMove = enemyPokemon.querySelectorAll(".enemy-move-info");

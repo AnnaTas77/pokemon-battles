@@ -432,17 +432,26 @@ footer {
 /* MEDIA QUERIES */
 
 @media only screen and (max-width: 900px) {
-    body {
-        /* height: max-content; */
+    .game-name {
+        width: 80%;
     }
-    #selected-pokemon,
-    #enemy-pokemon {
-        /* width: 345px; */
+
+    .choices-title {
+        font-size: 1.25rem;
     }
 
     .pokemon-wrapper {
         flex-direction: column;
         align-items: center;
+    }
+
+    #selected-pokemon,
+    #enemy-pokemon {
+        width: 309px;
+    }
+
+    #selected-pokemon button {
+        margin: 0 0 16px 0;
     }
 
     .pokemon-info h3 {
@@ -494,7 +503,7 @@ footer {
     }
 
     .move-btn {
-        padding: 10px 0;
+        padding: 10px 5px;
     }
 
     .move-box {
@@ -521,6 +530,7 @@ footer {
     .fight-btn {
         font-size: 1.3rem;
         padding: 8px 15px;
+        margin-top: 0;
     }
 
     .result-msg {
